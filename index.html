@@ -6,28 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Control</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery-3.2.1.min.js" ></script>
+    <script src="/js/bootstrap.bundle.js"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="row">
         <div class="col-md">
-            <h2>Send vibrations</h2>
+            <h2>Send vibrations </h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md controlbuttons">
-            <button type="button" class="btn btn-success" data-code="4444-----44444">Tilbage</button>
-            <button type="button" class="btn btn-primary" data-code="77---777---777---77">Spring over</button>
+            <button type="button" class="btn btn-success" data-code="1234567890">Tilbage</button>
+            <button type="button" class="btn btn-primary" data-code="7700770077007077">Spring over</button>
             <br><br>
             <button type="button" class="btn btn-success" data-code="777777">Svar mulighed 1</button>
-            <button type="button" class="btn btn-success" data-code="777777------77777">Svar mulighed 2</button>
-            <button type="button" class="btn btn-success" data-code="777777------777777------777777">Svar mulighed 3</button>
-            <button type="button" class="btn btn-success" data-code="777777------777777------777777------777777">Svar mulighed 4</button>
+            <button type="button" class="btn btn-success" data-code="777777000000077777">Svar mulighed 2</button>
+            <button type="button" class="btn btn-success" data-code="777777000000777777000000777777">Svar mulighed 3</button>
+            <button type="button" class="btn btn-success" data-code="777777000000777777000000777777000000777777">Svar mulighed 4</button>
+        </div>
+        <div class="col-md-2">
+            <span id="bullet" style="font-size: 300px; line-height: 0.0;">&bull;</span>
         </div>
     </div>
 </div>
@@ -35,11 +37,13 @@
 
 <script>
     $(document).ready( function () {
+        var delay = 50;
+
         $(".controlbuttons .btn").each(function () {
 
             $(this).click(function () {
                 var name = $(this).text();
-                var code = $(this).data('code');
+                var code = String($(this).data('code'));
                 console.log("Sender", name, ":", code);
                 sendVibration(code);
             })
@@ -48,11 +52,42 @@
         function sendVibration(code) {
             var data = {
                 code: code,
+                delay: delay
             };
 
-            $.post( "http://ip.jsontest.com/", data, function( data ) {
+            //$(".btn").prop('disabled', true);
+
+            $.get( "http://192.168.4.1/vibrate", data, function( data ) {
                 //$( ".result" ).html( data );
+            }).always(function () {
+                visualFeedback(code);
             });
+
+        }
+
+        function visualFeedback(code) {
+            var instruction = code.slice(0, 1);
+            var restOfCode = code.substring(1);
+            var color = null;
+
+            if (instruction === '0') {
+                color = 'rgb(200,200,200)';
+            } else if (instruction == "") {
+                color = 'rgb(200,200,200)';
+            } else {
+                var bab = 100+(instruction*15);
+                //console.log(bab);
+                color = 'rgb('+bab+',0,0)'
+            }
+
+            $("#bullet").css('color', color);
+
+            console.log('instruction', instruction, "restOfCode", restOfCode);
+            if (instruction !== "") {
+                setTimeout(visualFeedback, delay, restOfCode);
+            } else {
+                //$(".btn").prop('disabled', false);
+            }
         }
     });
     

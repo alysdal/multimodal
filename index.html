@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Control</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <h2>Send vibrations</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md controlbuttons">
+            <button type="button" class="btn btn-success" data-code="4444-----44444">Tilbage</button>
+            <button type="button" class="btn btn-primary" data-code="77---777---777---77">Spring over</button>
+            <br><br>
+            <button type="button" class="btn btn-success" data-code="777777">Svar mulighed 1</button>
+            <button type="button" class="btn btn-success" data-code="777777------77777">Svar mulighed 2</button>
+            <button type="button" class="btn btn-success" data-code="777777------777777------777777">Svar mulighed 3</button>
+            <button type="button" class="btn btn-success" data-code="777777------777777------777777------777777">Svar mulighed 4</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready( function () {
+        $(".controlbuttons .btn").each(function () {
+
+            $(this).click(function () {
+                var name = $(this).text();
+                var code = $(this).data('code');
+                console.log("Sender", name, ":", code);
+                sendVibration(code);
+            })
+        });
+
+        function sendVibration(code) {
+            var data = {
+                code: code,
+            };
+
+            $.post( "http://ip.jsontest.com/", data, function( data ) {
+                //$( ".result" ).html( data );
+            });
+        }
+    });
+    
+
+</script>
+
+</body>
+</html>

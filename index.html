@@ -20,19 +20,49 @@
     </div>
     <div class="row">
         <div class="col-md controlbuttons">
-            <button type="button" class="btn btn-success" data-code="1234567890">Tilbage</button>
-            <button type="button" class="btn btn-primary" data-code="7700770077007077">Spring over</button>
+            <button type="button" class="btn btn-success" data-code="999999555555999999"> &xlArr; Back</button>
+            <button type="button" class="btn btn-danger" data-code="1234567898765432123456789">Skip &xrArr;</button>
             <br><br>
-            <button type="button" class="btn btn-success" data-code="777777">Svar mulighed 1</button>
-            <button type="button" class="btn btn-success" data-code="777777000000077777">Svar mulighed 2</button>
-            <button type="button" class="btn btn-success" data-code="777777000000777777000000777777">Svar mulighed 3</button>
-            <button type="button" class="btn btn-success" data-code="777777000000777777000000777777000000777777">Svar mulighed 4</button>
+            <button type="button" class="btn btn-success" data-code="99987654321">Answer</button>
+            <button type="button" class="btn btn-success" data-code="99">1</button>
+            <button type="button" class="btn btn-success" data-code="9900000099">2</button>
+            <button type="button" class="btn btn-success" data-code="990000009900000099">3</button>
+            <button type="button" class="btn btn-success" data-code="99000000990000009900000099">4</button>
+            <button type="button" class="btn btn-success" data-code="9900000099000000990000009900000099">5</button>
+            <button type="button" class="btn btn-success" data-code="990000009900000099000000990000009900000099">6</button>
+            <button type="button" class="btn btn-success" data-code="99000000990000009900000099000000990000009900000099">7</button>
+            <button type="button" class="btn btn-success" data-code="9900000099000000990000009900000099000000990000009900000099">8</button>
+            <button type="button" class="btn btn-success" data-code="990000009900000099000000990000009900000099000000990000009900000099">9</button>
+            <button type="button" class="btn btn-success" data-code="99000000990000009900000099000000990000009900000099000000990000009900000099">10</button>
+            <button type="button" class="btn btn-warning" data-code="123456000123456">OR</button>
             <br><br>
-            <button type="button" class="btn btn-warning" data-code="12345678999999987654321">Trappe op og ned</button>
-            <button type="button" class="btn btn-warning" data-code="12345678999999987654321">Trappe op og ned</button>
+            <button type="button" class="btn btn-info" data-code="12345678999999987654321">Trappe op og ned</button>
+            <button type="button" class="btn btn-info" data-code="987654321111111123456789">Trappe ned og op</button>
+
+
+            <br><br><br><br><br>
+            <h2>Training</h2>
+            <button type="button" class="btn btn-success" data-code="99987654321">Answer</button>
+            <button type="button" class="btn btn-warning" data-code="123456000123456">OR</button>
+            <button type="button" class="btn btn-success" data-code="999999555555999999"> &xlArr; Back</button>
+            <button type="button" class="btn btn-danger" data-code="1234567898765432123456789">Skip &xrArr;</button>
+            <br><br>
+            <button type="button" class="btn btn-success" data-code="99">1</button>
+            <button type="button" class="btn btn-success" data-code="9900000099">2</button>
+            <button type="button" class="btn btn-success" data-code="990000009900000099">3</button>
+            <button type="button" class="btn btn-success" data-code="99000000990000009900000099">4</button>
+            <button type="button" class="btn btn-success" data-code="9900000099000000990000009900000099">5</button>
+            <button type="button" class="btn btn-success" data-code="990000009900000099000000990000009900000099">6</button>
+            <button type="button" class="btn btn-success" data-code="99000000990000009900000099000000990000009900000099">7</button>
+            <button type="button" class="btn btn-success" data-code="9900000099000000990000009900000099000000990000009900000099">8</button>
+            <button type="button" class="btn btn-success" data-code="990000009900000099000000990000009900000099000000990000009900000099">9</button>
+            <button type="button" class="btn btn-success" data-code="99000000990000009900000099000000990000009900000099000000990000009900000099">10</button>
         </div>
         <div class="col-md-2">
-            <span id="bullet" style="font-size: 300px; line-height: 0.0;">&bull;</span>
+            <span id="bullet" style="font-size:500px; line-height: 0.0;">&bull;</span>
+            <h4>History</h4>
+            <div id="log">
+            </div>
         </div>
     </div>
 </div>
@@ -48,6 +78,7 @@
                 var name = $(this).text();
                 var code = String($(this).data('code'));
                 console.log("Sender", name, ":", code);
+                $("#log").prepend($('<div>').html(name));
                 sendVibration(code);
             })
         });
@@ -63,9 +94,9 @@
             $.get( "http://192.168.4.1/vibrate", data, function( data ) {
                 //$( ".result" ).html( data );
             }).always(function () {
-                visualFeedback(code);
-            });
 
+            });
+            visualFeedback(code);
         }
 
         function visualFeedback(code) {

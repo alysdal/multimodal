@@ -20,13 +20,14 @@
     </div>
     <div class="row">
         <div class="col-md controlbuttons">
-            <button type="button" class="btn btn-warning" data-code="999999555555999999"> &xlArr; Back</button>
-            <button type="button" class="btn btn-info" data-code="1234567898765432123456789">Forward &xrArr;</button>
-            <button type="button" class="btn btn-danger" data-code="33333777779999333333">Undo Last action &olarr;</button>
+            <button type="button" class="btn btn-warning" data-code="5550071"> &xlArr; Back</button>
+            <button type="button" class="btn btn-info" data-code="998651">Forward &xrArr;</button>
+            <button type="button" class="btn btn-danger" data-code="777002200770011">Undo Last action &olarr;</button>
             <br><br>
-            <button type="button" class="btn btn-success" data-code="99987654321">Answer &check;</button>
-            <button type="button" class="btn btn-warning" data-code="123456000123456">OR &or;</button>
-            <button type="button" class="btn btn-danger" data-code="999000999000999000999">Erase answer &cross;</button>
+            <button type="button" class="btn btn-success" data-code="123456789">Answer &check;</button>
+            <button type="button" class="btn btn-warning" data-code="002020002020070707">OR &or;</button>
+            <button type="button" class="btn btn-danger" data-code="987654321">Erase answer &cross;</button>
+            <button type="button" class="btn btn-warning" data-code="008822001">Skip</button>
             <br><br>
             <button type="button" class="btn btn-success" data-code="99">1</button>
             <button type="button" class="btn btn-success" data-code="9900000099">2</button>
@@ -46,6 +47,40 @@
             <br><br><br>
 
         </div>
+        <div class="container" style="max-width: 800px">
+    <div class="row">
+        <div class="col-md">
+            <h2>Navigation test </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md controlbuttons">
+            <br><br>
+            <button type="button" class="btn nav-test btn-success" data-code="998651">Jump</button>
+            <button type="button" class="btn nav-test btn-success" data-code="5550071">Roll</button>
+            <button type="button" class="btn nav-test btn-success" data-code="800550022">Rock skip sea</button>
+            <button type="button" class="btn nav-test nav-test btn-success" data-code="98762211">Falling metal</button>
+            <button type="button" class="btn nav-test btn-success" data-code="008822001">Click</button>
+            <button type="button" class="btn nav-test  btn-success" data-code="2211334477">Skip that</button>
+            <button type="button" class="btn nav-test btn-success" data-code="002020002020070707">Alarm</button>
+            <button type="button" class="btn nav-test btn-success" data-code="011311001">Miss</button>
+            <button type="button" class="btn nav-test btn-success" data-code="777002200770011">Cancel</button>
+            <button type="button" class="btn nav-test btn-success" data-code="10101101111">Error</button>
+            <button type="button" class="btn nav-test btn-success" data-code="22008800220088">Shaking</button>
+            <button type="button" class="btn nav-test btn-success" data-code="001122555112211">Flying by</button>
+            <button type="button" class="btn nav-test btn-success" data-code="11002200220033000220033">Warning</button>
+            <button type="button" class="btn nav-test btn-success" data-code="123456789">Fast up</button>
+            <button type="button" class="btn nav-test btn-success" data-code="987654321">Fast down</button>
+            <button type="button" class="btn nav-test btn-success" data-code="1111122223333344444555556666677777888889999">Long up</button>
+            <button type="button" class="btn nav-test btn-success" data-code="9999888877776666555544444333322221111">Long down</button>
+            <!--<br><br>
+            <button type="button" class="btn btn-info" data-code="12345678999999987654321">Trappe op og ned</button>
+            <button type="button" class="btn btn-info" data-code="987654321111111123456789">Trappe ned og op</button>
+-->
+
+            <br><br><br>
+
+        </div>
         <div class="col-md-3">
             <span id="bullet" style="font-size:500px; line-height: 0.0;">&bull;</span>
 
@@ -55,13 +90,14 @@
         <div class="col-md">
             <h4>Training</h4>
             <pre>
-Answer 5
-Forward
-Answer 3 or 2
-Answer 3
-Go back 3 & and answer 3
-Forward 2
-Replace answer with 5
+                Answer 5
+                Forward
+                Answer 3 or 2
+                Answer 3
+                Go back 3 & and answer 3
+                Forward 2
+                Replace answer with 5
+
             </pre>
         </div>
         <div class="col-md-3">
@@ -75,7 +111,7 @@ Replace answer with 5
 
 <script>
     $(document).ready( function () {
-        var delay = 50;
+        var delay = 100;
 
         $(".controlbuttons .btn").each(function () {
 
@@ -85,6 +121,10 @@ Replace answer with 5
                 console.log("Sender", name, ":", code);
                 $("#log").prepend($('<div>').html(name));
                 sendVibration(code);
+
+                if ($(this).hasClass('nav-test')) {
+                	$(this).addClass('btn-warning');
+                }
             })
         });
 
